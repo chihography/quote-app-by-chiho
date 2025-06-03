@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>今日のひとことアプリ by Chiho</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+    }
+    .slideshow-container {
+      position: relative;
+      max-width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      height: 100vh;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+    .quote {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px;
+      font-size: 1.5rem;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="slideshow-container" id="slideshow">
+    <!-- スライドがここに追加されます -->
+  </div>
+
+  <script>
+    const quotes = [
+      "コードが動かない日は、あなたが動いている日。",
+      "進んでなくても、やめてない。それだけで十分。",
+      "バグはあなたを否定してない。ただ少し道に迷ってるだけ。",
+      "“できない”を繰り返すうちに、“できた”は突然やってくる。",
+      "焦らない人が、最後には一番遠くまで行ける。",
+      "見えないところで育ってる根が、一番強い。",
+      "あなたのアプリが、誰かの心に灯をともす日が来る。"
+    ];
+
+    const slideshow = document.getElementById('slideshow');
+
+    quotes.forEach((quote, index) => {
+      for (let i = 1; i <= 3; i++) {
+        const slideDiv = document.createElement('div');
+        slideDiv.className = 'slide';
+        const img = document.createElement('img');
+        img.src = `images/${index * 3 + i}.jpg`;
+        const quoteDiv = document.createElement('div');
+        quoteDiv.className = 'quote';
+        quoteDiv.textContent = quote;
+        slideDiv.appendChild(img);
+        slideDiv.appendChild(quoteDiv);
+        slideshow.appendChild(slideDiv);
+      }
+    });
+
+    let currentSlide = 0;
+    const slides = document.getElementsByClassName("slide");
+    function showSlide(index) {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slides[index].style.display = "block";
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    showSlide(currentSlide);
+    setInterval(nextSlide, 5000); // 5秒ごとに次のスライドへ
+  </script>
+</body>
+</html>
